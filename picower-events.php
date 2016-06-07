@@ -15,6 +15,7 @@ global $organizer_map;
 global $event_type_map;
 global $contact_name;
 global $contact_email;
+global $bcs_talks_events;
 
 date_default_timezone_set('America/New_York');
 
@@ -28,10 +29,19 @@ $event_type_map = array(
 	'Special Seminars,' => '66',
 	'Symposia,' => '60',
 	'Plastic Lunches,' => '309',
-	'Picower Lecture,' => '74',
+	'Picower Lecture,' => '64',
 	'Picower Retreats,' => '68',
-	'Aging Brain Seminar Series' => '74',
+	'Aging Brain Seminar Series' => '64',
         'Retreat' => '68'
+);
+
+$bcs_talks_events = array(
+	'MIT Colloquium on the Brain and Cognition ',
+        'Colloquia,',
+        'Special Seminars,',
+        'Symposia,',
+        'Picower Lecture,',
+        'Aging Brain Seminar Series'
 );
 
 $contact_name = "Erin Edwards";
@@ -116,6 +126,7 @@ function get_events(){
 	global $event_type_map;
      	global $contact_name;
 	global $contact_email;
+        global $bcs_talks_events;
 	
 	$meta_keys = get_event_meta_keys();
 
@@ -284,7 +295,14 @@ function get_events(){
                 // Add default notification settings
                 $events[$key]['email_reminders'] = 1; 
                 $events[$key]['reminder_settings'] = 'list';
-				
+
+                // Determine notification_list by event type
+                $notification_list = "bcs-all@mit.edu";
+                if (in_array($events[$key]['event_type'],$bcs_talks_events)) {
+                	$notification_list .= "\nbcs-talks@mit.edu";
+                }
+                $events[$key]['notification_list'] = $notification_list;
+
 	}
 	
 	return events_to_xml($events);	
