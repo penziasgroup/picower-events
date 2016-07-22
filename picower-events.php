@@ -44,8 +44,8 @@ $bcs_talks_events = array(
         'Aging Brain Seminar Series'
 );
 
-$contact_name = "Erin Edwards";
-$contact_email = "erine@mit.edu";
+$contact_name = "Casey Reisner";
+$contact_email = "creisner@mit.edu";
 
 function eventsRSS(){
 	add_feed('events', 'events_rss_render');
