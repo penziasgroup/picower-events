@@ -185,6 +185,9 @@ function get_events(){
  	// Add paramters
  	get_event_params($q,$start_date_tb);
  	 	
+
+	// Turn on SQL_BIG_SELECTS to avoid MAX_JOIN_SIZE errors on some servers
+        $wpdb->query("SET SQL_BIG_SELECTS=1"); 
 	$events = $wpdb->get_results($q, ARRAY_A);
 	
 	foreach ($events as $key => $event) {
