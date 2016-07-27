@@ -187,7 +187,7 @@ function get_events(){
  	 	
 
 	// Turn on SQL_BIG_SELECTS to avoid MAX_JOIN_SIZE errors on some servers
-        $wpdb->query("SET SQL_BIG_SELECTS=1"); 
+    $wpdb->query("SET SQL_BIG_SELECTS=1"); 
 	$events = $wpdb->get_results($q, ARRAY_A);
 	
 	foreach ($events as $key => $event) {
@@ -282,14 +282,6 @@ function get_events(){
 		foreach($children as $ckey => $c) {
 			$events[$key]['attachment'][] = $c->guid;
 		}
-
-                // set event_image to speaker_image if defined, else first attachment
-                if (isset($events[$key]['speaker_image'])) {
-                  $events[$key]['event_image'] = $events[$key]['speaker_image'];
-                }                
-		elseif (isset($events[$key]['attachment'][0])){
-		  $events[$key]['event_image'] = $events[$key]['attachment'][0];
-                }
 
 		// Add default contact
 		$events[$key]['contact_name'] = $contact_name;
